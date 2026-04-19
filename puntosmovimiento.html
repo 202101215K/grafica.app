@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Puntos en Movimiento</title>
+<style>
+    canvas{
+        border:1px solid black;
+        display:block;
+        margin:auto;
+    }
+</style>
+</head>
+<body>
+
+<h2 style="text-align:center;">Puntos en Movimiento</h2>
+
+<canvas id="lienzo" width="500" height="300"></canvas>
+
+<script>
+const canvas = document.getElementById("lienzo");
+const ctx = canvas.getContext("2d");
+
+let puntos = [];
+
+// crear puntos iniciales
+for(let i=0; i<5; i++){
+    puntos.push({
+        x: Math.random()*500,
+        y: Math.random()*300
+    });
+}
+
+function dibujar(){
+    ctx.clearRect(0,0,500,300);
+
+    puntos.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 5, 0, Math.PI*2);
+        ctx.fill();
+    });
+}
+
+function actualizar(){
+    puntos.forEach(p => {
+        p.x = Math.random()*500;
+        p.y = Math.random()*300;
+    });
+    dibujar();
+}
+
+setInterval(actualizar, 1000);
+dibujar();
+</script>
+
+</body>
+</html>
