@@ -21,13 +21,11 @@
     .nombre{
         font-size:26px;
         font-weight:bold;
-        letter-spacing:1px;
     }
 
     .curso{
         font-size:14px;
         color:#38bdf8;
-        margin-top:5px;
     }
 
     .contenedor{
@@ -62,19 +60,16 @@
     .semana{
         font-size:13px;
         color:#38bdf8;
-        margin-bottom:5px;
     }
 
     .titulo{
         font-size:18px;
         font-weight:bold;
-        margin-bottom:10px;
     }
 
     .fecha{
         font-size:12px;
         color:#94a3b8;
-        margin-bottom:10px;
     }
 
     .boton{
@@ -85,11 +80,7 @@
         border-radius:8px;
         text-decoration:none;
         font-weight:bold;
-        font-size:14px;
-    }
-
-    .boton:hover{
-        background:#0ea5e9;
+        margin-top:10px;
     }
 </style>
 </head>
@@ -103,34 +94,34 @@
 <div class="contenedor">
 
     <!-- TAREA 1 -->
-    <div class="card">
+    <div class="card" data-fecha="2026-04-10">
         <img src="https://cdn0.uncomo.com/es/posts/0/9/0/como_realizar_un_grafico_de_barras_en_excel_2007_15090_600.jpg">
         <div class="contenido">
-            <div class="semana">Semana 1</div>
+            <div class="semana"></div>
             <div class="titulo">Gráfico de Barras Dinámico</div>
-            <div class="fecha" id="fecha1"></div>
+            <div class="fecha"></div>
             <a href="grafico_barras.html" class="boton">Ver tarea</a>
         </div>
     </div>
 
     <!-- TAREA 2 -->
-    <div class="card">
+    <div class="card" data-fecha="2026-04-10">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt2PSviSPgAabjeBUEiZxx_xgiN4NzVmYViw&s">
         <div class="contenido">
-            <div class="semana">Semana 1</div>
+            <div class="semana"></div>
             <div class="titulo">Puntos en Movimiento</div>
-            <div class="fecha" id="fecha2"></div>
+            <div class="fecha"></div>
             <a href="puntosmovimiento.html" class="boton">Ver tarea</a>
         </div>
     </div>
 
     <!-- TAREA 3 -->
-    <div class="card">
+    <div class="card" data-fecha="2026-04-12">
         <img src="https://interactivechaos.com/sites/default/files/pictures/funcion_coseno.png">
         <div class="contenido">
-            <div class="semana">Semana 2</div>
+            <div class="semana"></div>
             <div class="titulo">Curva Coseno Dinámica</div>
-            <div class="fecha" id="fecha3"></div>
+            <div class="fecha"></div>
             <a href="coseno.html" class="boton">Ver tarea</a>
         </div>
     </div>
@@ -138,15 +129,35 @@
 </div>
 
 <script>
-function obtenerFecha() {
-    const fecha = new Date();
-    const opciones = { day: 'numeric', month: 'long', year: 'numeric' };
-    return fecha.toLocaleDateString('es-ES', opciones);
+// FECHA BASE DEL CURSO
+const inicioCurso = new Date("2026-04-10");
+
+// FORMATO DE FECHA BONITO
+function formatearFecha(fecha) {
+    return fecha.toLocaleDateString('es-ES', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    });
 }
 
-document.getElementById("fecha1").textContent = "Creado: " + obtenerFecha();
-document.getElementById("fecha2").textContent = "Creado: " + obtenerFecha();
-document.getElementById("fecha3").textContent = "Creado: " + obtenerFecha();
+// CALCULAR SEMANA
+function calcularSemana(fechaTarea) {
+    const diferencia = fechaTarea - inicioCurso;
+    const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+    return Math.floor(dias / 7) + 1;
+}
+
+// PROCESAR TODAS LAS TARJETAS
+document.querySelectorAll(".card").forEach(card => {
+    const fechaTexto = card.getAttribute("data-fecha");
+    const fecha = new Date(fechaTexto);
+
+    const semana = calcularSemana(fecha);
+
+    card.querySelector(".semana").textContent = "Semana " + semana;
+    card.querySelector(".fecha").textContent = "Creado: " + formatearFecha(fecha);
+});
 </script>
 
 </body>
