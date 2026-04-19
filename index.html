@@ -129,6 +129,16 @@
 </div>
 
 <script>
+
+    function obtenerFecha() {
+    const fecha = new Date();
+    const opciones = { day: 'numeric', month: 'long', year: 'numeric' };
+    return fecha.toLocaleDateString('es-ES', opciones);
+}
+
+document.getElementById("fecha1").textContent = "Creado: " + obtenerFecha();
+document.getElementById("fecha2").textContent = "Creado: " + obtenerFecha();
+document.getElementById("fecha3").textContent = "Creado: " + obtenerFecha();
 // FECHA BASE DEL CURSO
 const inicioCurso = new Date("2026-04-10");
 
@@ -159,6 +169,8 @@ document.querySelectorAll(".card").forEach(card => {
     card.querySelector(".fecha").textContent = "Creado: " + formatearFecha(fecha);
 });
 </script>
+
+  
 
 </body>
 </html>
