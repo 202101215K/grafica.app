@@ -1,59 +1,138 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FERNANDO HUACHACA PACHECO</title>
+<meta charset="UTF-8">
+<title>Portafolio de Tareas</title>
+<style>
+    body{
+        margin:0;
+        font-family: 'Segoe UI', sans-serif;
+        background:#0f172a;
+        color:white;
+    }
+
+    header{
+        background:#020617;
+        padding:25px;
+        text-align:center;
+        border-bottom:2px solid #1e293b;
+    }
+
+    .nombre{
+        font-size:26px;
+        font-weight:bold;
+        letter-spacing:1px;
+    }
+
+    .curso{
+        font-size:14px;
+        color:#38bdf8;
+        margin-top:5px;
+    }
+
+    .contenedor{
+        display:grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+        gap:25px;
+        padding:30px;
+    }
+
+    .card{
+        background:#1e293b;
+        border-radius:15px;
+        overflow:hidden;
+        transition:0.3s;
+        box-shadow:0 5px 15px rgba(0,0,0,0.4);
+    }
+
+    .card:hover{
+        transform:translateY(-8px);
+    }
+
+    .card img{
+        width:100%;
+        height:180px;
+        object-fit:cover;
+    }
+
+    .contenido{
+        padding:15px;
+    }
+
+    .semana{
+        font-size:13px;
+        color:#38bdf8;
+        margin-bottom:5px;
+    }
+
+    .titulo{
+        font-size:18px;
+        font-weight:bold;
+        margin-bottom:10px;
+    }
+
+    .fecha{
+        font-size:12px;
+        color:#94a3b8;
+        margin-bottom:10px;
+    }
+
+    .boton{
+        display:inline-block;
+        padding:8px 12px;
+        background:#38bdf8;
+        color:black;
+        border-radius:8px;
+        text-decoration:none;
+        font-weight:bold;
+        font-size:14px;
+    }
+
+    .boton:hover{
+        background:#0ea5e9;
+    }
+</style>
 </head>
 <body>
-    <h2>FERNANDO HUACHACA PACHECO</h2>
-    <canvas id="myCanvas" width="800" height="400" style="border: 1px solid black;"></canvas>
-<!-- CODIGO JAVASCRIP -->
 
-<script>
-    var canvas = document.getElementById("myCanvas");
-    var ctx = canvas.getContext("2d");
+<header>
+    <div class="nombre">FERNANDO HUACHACA PACHECO</div>
+    <div class="curso">CURSO: COMPUTACION GRAFICA</div>
+</header>
 
-    // variables necesarias para el graficos
+<div class="contenedor">
 
-var xstart = 0; // punto de inicio en el eje x
-var xend = 800; // punto de fin en el eje y
-var step  = 0.1; // paso para el incremento de x
-var time=0; // variable para animar el grafico 
+    <div class="card">
+        <img src="https://picsum.photos/400/200?random=1">
+        <div class="contenido">
+            <div class="semana">Semana 1</div>
+            <div class="titulo">Gráfico de Barras Dinámico</div>
+            <div class="fecha">Creado: 10 Abril 2026</div>
+            <a href="ejercicio1.html" class="boton">Ver tarea</a>
+        </div>
+    </div>
 
-// funcion para dibujar el grafico
-function drawGraph() {
-    //limpiar el lienzo antes de dibujar el nuevo gráfico
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // limpiar el canvas
-// configurar el estilo de la línea
-ctx.beginPath();
-ctx.strokeStyle= 'blue'; // color de la línea
-ctx.lineWidth = 2; // grosor de la línea
-//dibuja la funcion  Y = sin(x)
-for (var x = xstart; x < xend; x += step) {
-    var y = Math.sin(x*0.01+time); // función para crear una onda sinusoidal con el tiempo para animar
+    <div class="card">
+        <img src="https://picsum.photos/400/200?random=2">
+        <div class="contenido">
+            <div class="semana">Semana 1</div>
+            <div class="titulo">Puntos en Movimiento</div>
+            <div class="fecha">Creado: 10 Abril 2026</div>
+            <a href="ejercicio2.html" class="boton">Ver tarea</a>
+        </div>
+    </div>
 
-    if (x === xstart) {
-        ctx.moveTo(x,canvas.height/2 -y*100); // posiciona el el punto de inicio en el eje x y el centro del canvas en el eje y
-    } 
-    
-    else {
-        ctx.lineTo(x,canvas.height/2-y*100); // dibujar la línea
-        }
-}
-        // dibuja la línea en el canvas
-ctx.stroke(); // dibujar la línea
-}
+    <div class="card">
+        <img src="https://picsum.photos/400/200?random=3">
+        <div class="contenido">
+            <div class="semana">Semana 2</div>
+            <div class="titulo">Curva Coseno Dinámica</div>
+            <div class="fecha">Creado: 12 Abril 2026</div>
+            <a href="ejercicio3.html" class="boton">Ver tarea</a>
+        </div>
+    </div>
 
-// función para animar el gráfico
-function animate() {
-    drawGraph(); // dibujar el gráfico inicial   
-    time += 0.08; // incrementar el tiempo para animar la onda
-    requestAnimationFrame(animate); // llama a la funcion de animación
-}
+</div>
 
-//inicia la animación
-animate(); // iniciar la animación
-</script>  
 </body>
 </html>
