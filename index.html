@@ -102,39 +102,52 @@
 
 <div class="contenedor">
 
-    
-
+    <!-- TAREA 1 -->
     <div class="card">
         <img src="https://cdn0.uncomo.com/es/posts/0/9/0/como_realizar_un_grafico_de_barras_en_excel_2007_15090_600.jpg">
         <div class="contenido">
             <div class="semana">Semana 1</div>
             <div class="titulo">Gráfico de Barras Dinámico</div>
-            <div class="fecha">Creado: 10 Abril 2026</div>
+            <div class="fecha" id="fecha1"></div>
             <a href="grafico_barras.html" class="boton">Ver tarea</a>
         </div>
     </div>
 
+    <!-- TAREA 2 -->
     <div class="card">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt2PSviSPgAabjeBUEiZxx_xgiN4NzVmYViw&s">
         <div class="contenido">
             <div class="semana">Semana 1</div>
             <div class="titulo">Puntos en Movimiento</div>
-            <div class="fecha">Creado: 10 Abril 2026</div>
+            <div class="fecha" id="fecha2"></div>
             <a href="puntosmovimiento.html" class="boton">Ver tarea</a>
         </div>
     </div>
 
+    <!-- TAREA 3 -->
     <div class="card">
         <img src="https://interactivechaos.com/sites/default/files/pictures/funcion_coseno.png">
         <div class="contenido">
             <div class="semana">Semana 2</div>
             <div class="titulo">Curva Coseno Dinámica</div>
-            <div class="fecha">Creado: 12 Abril 2026</div>
+            <div class="fecha" id="fecha3"></div>
             <a href="coseno.html" class="boton">Ver tarea</a>
         </div>
     </div>
 
 </div>
+
+<script>
+function obtenerFecha() {
+    const fecha = new Date();
+    const opciones = { day: 'numeric', month: 'long', year: 'numeric' };
+    return fecha.toLocaleDateString('es-ES', opciones);
+}
+
+document.getElementById("fecha1").textContent = "Creado: " + obtenerFecha();
+document.getElementById("fecha2").textContent = "Creado: " + obtenerFecha();
+document.getElementById("fecha3").textContent = "Creado: " + obtenerFecha();
+</script>
 
 </body>
 </html>
