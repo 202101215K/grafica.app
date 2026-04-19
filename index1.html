@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Portafolio de Tareas</title>
+<style>
+    body{
+        margin:0;
+        font-family: 'Segoe UI', sans-serif;
+        background:#0f172a;
+        color:white;
+    }
+
+    header{
+        background:#020617;
+        padding:25px;
+        text-align:center;
+        border-bottom:2px solid #1e293b;
+    }
+
+    .nombre{
+        font-size:26px;
+        font-weight:bold;
+        letter-spacing:1px;
+    }
+
+    .curso{
+        font-size:14px;
+        color:#38bdf8;
+        margin-top:5px;
+    }
+
+    .contenedor{
+        display:grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+        gap:25px;
+        padding:30px;
+    }
+
+    .card{
+        background:#1e293b;
+        border-radius:15px;
+        overflow:hidden;
+        transition:0.3s;
+        box-shadow:0 5px 15px rgba(0,0,0,0.4);
+    }
+
+    .card:hover{
+        transform:translateY(-8px);
+    }
+
+    .card img{
+        width:100%;
+        height:180px;
+        object-fit:cover;
+    }
+
+    .contenido{
+        padding:15px;
+    }
+
+    .semana{
+        font-size:13px;
+        color:#38bdf8;
+        margin-bottom:5px;
+    }
+
+    .titulo{
+        font-size:18px;
+        font-weight:bold;
+        margin-bottom:10px;
+    }
+
+    .fecha{
+        font-size:12px;
+        color:#94a3b8;
+        margin-bottom:10px;
+    }
+
+    .boton{
+        display:inline-block;
+        padding:8px 12px;
+        background:#38bdf8;
+        color:black;
+        border-radius:8px;
+        text-decoration:none;
+        font-weight:bold;
+        font-size:14px;
+    }
+
+    .boton:hover{
+        background:#0ea5e9;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <div class="nombre">Tu Nombre</div>
+    <div class="curso">Curso: Programación Web</div>
+</header>
+
+<div class="contenedor">
+
+    <div class="card">
+        <img src="https://picsum.photos/400/200?random=1">
+        <div class="contenido">
+            <div class="semana">Semana 1</div>
+            <div class="titulo">Gráfico de Barras Dinámico</div>
+            <div class="fecha">Creado: 10 Abril 2026</div>
+            <a href="ejercicio1.html" class="boton">Ver tarea</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://picsum.photos/400/200?random=2">
+        <div class="contenido">
+            <div class="semana">Semana 1</div>
+            <div class="titulo">Puntos en Movimiento</div>
+            <div class="fecha">Creado: 10 Abril 2026</div>
+            <a href="ejercicio2.html" class="boton">Ver tarea</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://picsum.photos/400/200?random=3">
+        <div class="contenido">
+            <div class="semana">Semana 2</div>
+            <div class="titulo">Curva Coseno Dinámica</div>
+            <div class="fecha">Creado: 12 Abril 2026</div>
+            <a href="ejercicio3.html" class="boton">Ver tarea</a>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
