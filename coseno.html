@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Curva Coseno Dinámica</title>
+<style>
+    canvas{
+        border:1px solid black;
+        display:block;
+        margin:auto;
+    }
+</style>
+</head>
+<body>
+
+<h2 style="text-align:center;">Curva Dinámica y = cos(x)</h2>
+
+<canvas id="canvas" width="600" height="300"></canvas>
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+let desplazamiento = 0;
+
+function dibujar(){
+    ctx.clearRect(0,0,600,300);
+
+    ctx.beginPath();
+    ctx.moveTo(0,150);
+
+    for(let x=0; x<600; x++){
+        let y = 150 + Math.cos((x + desplazamiento) * 0.02) * 50;
+        ctx.lineTo(x, y);
+    }
+
+    ctx.stroke();
+}
+
+function actualizar(){
+    desplazamiento += 5;
+    dibujar();
+}
+
+setInterval(actualizar, 1000);
+dibujar();
+</script>
+
+</body>
+</html>
