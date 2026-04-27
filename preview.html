@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Monografía: Mallas Poligonales</title>
+
+<style>
+body{
+    font-family: Arial;
+    margin:40px;
+    background:#f4f6f9;
+    line-height:1.7;
+}
+section{
+    background:white;
+    padding:20px;
+    margin-bottom:20px;
+    border-radius:10px;
+}
+canvas{
+    display:block;
+    margin:auto;
+    border:1px solid black;
+}
+h1,h2,h3{
+    color:#2c3e50;
+}
+</style>
+</head>
+
+<body>
+
+<h1 style="text-align:center;">MONOGRAFÍA</h1>
+<h2 style="text-align:center;">MALLAS POLIGONALES</h2>
+
+<section>
+<h2>1. Introducción</h2>
+<p>
+Las mallas poligonales son estructuras fundamentales en gráficos por computadora utilizadas para representar objetos tridimensionales.
+Se componen de elementos geométricos básicos que permiten modelar superficies complejas.
+</p>
+</section>
+
+<section>
+<h2>2. Marco Teórico</h2>
+
+<h3>2.1 Definición</h3>
+<p>
+Una malla poligonal es un conjunto de vértices, aristas y caras organizados para representar la superficie de un objeto.
+</p>
+
+<h3>2.2 Componentes</h3>
+<ul>
+<li><b>Vértices:</b> puntos en el espacio</li>
+<li><b>Aristas:</b> conexiones entre vértices</li>
+<li><b>Caras:</b> superficies (triángulos o cuadriláteros)</li>
+</ul>
+
+<h3>2.3 Tipos</h3>
+<ul>
+<li>Mallas triangulares (más usadas en videojuegos)</li>
+<li>Mallas cuadrangulares (modelado profesional)</li>
+<li>Mallas irregulares</li>
+</ul>
+
+<h3>2.4 Propiedades</h3>
+<ul>
+<li>Resolución (cantidad de polígonos)</li>
+<li>Topología</li>
+<li>Optimización para renderizado</li>
+</ul>
+
+</section>
+
+<section>
+<h2>3. Ejemplo Animado</h2>
+
+<canvas id="canvas" width="400" height="300"></canvas>
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+let angle = 0;
+
+let puntos = [
+    [-50,-50],[50,-50],[50,50],[-50,50]
+];
+
+function rotar(x,y,ang){
+    return [
+        x*Math.cos(ang) - y*Math.sin(ang),
+        x*Math.sin(ang) + y*Math.cos(ang)
+    ];
+}
+
+function dibujar(){
+    ctx.clearRect(0,0,400,300);
+
+    let rotados = puntos.map(p => rotar(p[0],p[1],angle));
+
+    ctx.beginPath();
+
+    rotados.forEach((p,i)=>{
+        let x = p[0]+200;
+        let y = p[1]+150;
+        if(i===0) ctx.moveTo(x,y);
+        else ctx.lineTo(x,y);
+    });
+
+    ctx.closePath();
+    ctx.stroke();
+
+    angle += 0.02;
+
+    requestAnimationFrame(dibujar);
+}
+
+dibujar();
+</script>
+
+</section>
+
+<section>
+<h2>4. Aplicaciones</h2>
+<ul>
+<li>Modelado 3D</li>
+<li>Videojuegos</li>
+<li>Realidad virtual</li>
+<li>Simulación</li>
+</ul>
+</section>
+
+<section>
+<h2>5. Conclusión</h2>
+<p>
+Las mallas poligonales son la base de la representación tridimensional moderna.
+Su correcta utilización permite generar modelos eficientes y realistas.
+</p>
+</section>
+
+</body>
+</html>

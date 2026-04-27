@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Monografía: Curvas Paramétricas</title>
+
+<style>
+body{
+    font-family: Arial;
+    margin:40px;
+    background:#f4f6f9;
+    line-height:1.7;
+}
+section{
+    background:white;
+    padding:20px;
+    margin-bottom:20px;
+    border-radius:10px;
+}
+canvas{
+    display:block;
+    margin:auto;
+    border:1px solid black;
+}
+h1,h2,h3{
+    color:#2c3e50;
+}
+</style>
+</head>
+
+<body>
+
+<h1 style="text-align:center;">MONOGRAFÍA</h1>
+<h2 style="text-align:center;">CURVAS PARAMÉTRICAS</h2>
+
+<section>
+<h2>1. Introducción</h2>
+<p>
+Las curvas paramétricas constituyen una herramienta fundamental en la matemática moderna y la computación gráfica.
+Permiten representar trayectorias mediante funciones dependientes de un parámetro, lo cual facilita describir movimientos
+y formas complejas en el plano y en el espacio.
+</p>
+</section>
+
+<section>
+<h2>2. Marco Teórico</h2>
+
+<h3>2.1 Definición</h3>
+<p>
+Una curva paramétrica es aquella en la que cada coordenada se expresa como función de una variable independiente denominada parámetro (t).
+</p>
+
+<p><b>x = f(t), y = g(t)</b></p>
+
+<h3>2.2 Interpretación Geométrica</h3>
+<p>
+A medida que el parámetro t varía, el punto (x,y) describe una trayectoria en el plano cartesiano.
+Esto permite representar movimientos como trayectorias de partículas.
+</p>
+
+<h3>2.3 Ventajas</h3>
+<ul>
+<li>Permiten representar curvas no funcionales (como circunferencias completas)</li>
+<li>Facilitan el modelado de movimiento</li>
+<li>Son fundamentales en animación</li>
+</ul>
+
+<h3>2.4 Tipos de Curvas</h3>
+<ul>
+<li>Lineales</li>
+<li>Circulares</li>
+<li>Espirales</li>
+<li>Cicloides</li>
+</ul>
+
+</section>
+
+<section>
+<h2>3. Ejemplo Matemático</h2>
+<p>
+Circunferencia:
+</p>
+<p><b>x = r cos(t), y = r sin(t)</b></p>
+</section>
+
+<section>
+<h2>4. Ejemplo Animado</h2>
+
+<canvas id="canvas" width="400" height="300"></canvas>
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+let t = 0;
+
+function animar(){
+    ctx.clearRect(0,0,400,300);
+
+    ctx.beginPath();
+    ctx.arc(200,150,100,0,Math.PI*2);
+    ctx.strokeStyle = "#ccc";
+    ctx.stroke();
+
+    let x = 200 + 100*Math.cos(t);
+    let y = 150 + 100*Math.sin(t);
+
+    ctx.beginPath();
+    ctx.arc(x,y,5,0,Math.PI*2);
+    ctx.fillStyle = "red";
+    ctx.fill();
+
+    t += 0.05;
+
+    requestAnimationFrame(animar);
+}
+
+animar();
+</script>
+
+</section>
+
+<section>
+<h2>5. Aplicaciones</h2>
+<ul>
+<li>Animación y videojuegos</li>
+<li>Trayectorias físicas</li>
+<li>Ingeniería y robótica</li>
+<li>Diseño asistido por computadora (CAD)</li>
+</ul>
+</section>
+
+<section>
+<h2>6. Conclusión</h2>
+<p>
+Las curvas paramétricas permiten representar fenómenos dinámicos de manera precisa y flexible.
+Su uso es esencial en múltiples áreas tecnológicas y científicas.
+</p>
+</section>
+
+</body>
+</html>
