@@ -1,143 +1,311 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Monografía: Mallas Poligonales</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Monografía: Mallas Poligonales | Computación Gráfica</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<style>
-body{
-    font-family: Arial;
-    margin:40px;
-    background:#f4f6f9;
-    line-height:1.7;
-}
-section{
-    background:white;
-    padding:20px;
-    margin-bottom:20px;
-    border-radius:10px;
-}
-canvas{
-    display:block;
-    margin:auto;
-    border:1px solid black;
-}
-h1,h2,h3{
-    color:#2c3e50;
-}
-</style>
+        body {
+            background-color: #e2e6ec;
+            font-family: 'Times New Roman', Georgia, 'Cambria', serif;
+            line-height: 1.45;
+            color: #1e1e2a;
+            padding: 40px 20px;
+        }
+
+        .paper {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 20px 35px -10px rgba(0,0,0,0.2);
+            padding: 2.2rem 2.5rem;
+            border-radius: 4px;
+        }
+
+        /* encabezado universidad */
+        .uni-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #1e3a5f;
+            padding-bottom: 1rem;
+            margin-bottom: 1.8rem;
+            flex-wrap: wrap;
+        }
+        .uni-text {
+            flex: 2;
+        }
+        .uni-text h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #0b2b44;
+            margin: 0;
+            line-height: 1.3;
+        }
+        .uni-text h3 {
+            font-size: 1rem;
+            font-weight: normal;
+            color: #2c3e4e;
+            margin-top: 5px;
+        }
+        .logo-placeholder {
+            background-color: #f4f7fc;
+            width: 130px;
+            height: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            border: 1px solid #cbdae6;
+            font-size: 0.75rem;
+            color: #2c5a7a;
+            text-align: center;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23f4faff" stroke="%2321628a" stroke-width="1.2"/><text x="50" y="55" font-size="11" text-anchor="middle" fill="%231a4d6f" font-weight="bold">UTEA</text><text x="50" y="72" font-size="8" text-anchor="middle" fill="%233c6e8f">Logo</text></svg>');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+        }
+        .title-main {
+            text-align: center;
+            margin: 30px 0 20px;
+        }
+        .title-main h1 {
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #bbb;
+            display: inline-block;
+            padding-bottom: 8px;
+            color: #0b2b44;
+        }
+        .datos {
+            background: #f8fafe;
+            padding: 12px 20px;
+            margin: 25px 0;
+            border-left: 6px solid #1e5f8e;
+            font-size: 1.05rem;
+        }
+        .datos p {
+            margin: 5px 0;
+        }
+        .footer-location {
+            text-align: center;
+            margin: 25px 0 15px 0;
+            font-style: italic;
+            color: #2c5a72;
+        }
+        .TOC-Heading, .titulo-1 {
+            font-size: 1.7rem;
+            font-weight: bold;
+            margin: 1.4rem 0 0.8rem 0;
+            color: #173e5c;
+            border-left: 5px solid #1e6b9b;
+            padding-left: 18px;
+        }
+        .titulo-2 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin: 1.2rem 0 0.7rem 0;
+            color: #204b6e;
+            border-bottom: 1px solid #cbd0df;
+            padding-bottom: 3px;
+        }
+        p {
+            margin-bottom: 0.85rem;
+            text-align: justify;
+        }
+        .contents-index {
+            background: #f8fafc;
+            padding: 0.8rem 1.5rem;
+            margin: 1rem 0 2rem;
+            border-radius: 12px;
+        }
+        .contents-index ul {
+            columns: 2;
+            column-gap: 2rem;
+            list-style: none;
+            margin-top: 8px;
+        }
+        .contents-index li {
+            margin-bottom: 6px;
+            font-size: 0.98rem;
+        }
+        .contents-index a {
+            text-decoration: none;
+            color: #1f5a82;
+        }
+        .contents-index a:hover {
+            text-decoration: underline;
+        }
+        .references {
+            margin-top: 2rem;
+            list-style: decimal;
+            padding-left: 1.8rem;
+        }
+        .references li {
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        hr {
+            margin: 20px 0;
+            height: 1px;
+            background: #ccc;
+            border: 0;
+        }
+        @media (max-width: 700px) {
+            .paper {
+                padding: 1.3rem;
+            }
+            .uni-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .logo-placeholder {
+                margin-top: 10px;
+            }
+            .title-main h1 {
+                font-size: 1.6rem;
+            }
+            .contents-index ul {
+                columns: 1;
+            }
+        }
+        .note-italic {
+            font-style: italic;
+            background: #f6f9fe;
+            padding: 6px 12px;
+            border-left: 3px solid #8db3d0;
+            margin: 15px 0;
+        }
+    </style>
 </head>
-
 <body>
+<div class="paper">
+    <!-- ENCABEZADO UNIVERSIDAD / LOGO -->
+    <div class="uni-header">
+        <div class="uni-text">
+            <h2>UNIVERSIDAD TECNOLÓGICA DE LOS ANDES</h2>
+            <h3>FACULTAD DE INGENIERÍA</h3>
+            <h3>ESCUELA PROFESIONAL DE INGENIERÍA DE SISTEMAS E INFORMÁTICA</h3>
+        </div>
+        <div class="logo-placeholder" aria-label="Logo institucional UTEA">
+            <!-- Representación gráfica de media/image1.png -->
+        </div>
+    </div>
 
-<h1 style="text-align:center;">MONOGRAFÍA</h1>
-<h2 style="text-align:center;">MALLAS POLIGONALES</h2>
+    <!-- TÍTULO PRINCIPAL -->
+    <div class="title-main">
+        <h1>Mallas Poligonales</h1>
+    </div>
 
-<section>
-<h2>1. Introducción</h2>
-<p>
-Las mallas poligonales son estructuras fundamentales en gráficos por computadora utilizadas para representar objetos tridimensionales.
-Se componen de elementos geométricos básicos que permiten modelar superficies complejas.
-</p>
-</section>
+    <!-- DATOS ESTUDIANTE Y DOCENTE -->
+    <div class="datos">
+        <p><strong>Estudiante:</strong> Fernando Huachaca Pacheco</p>
+        <p><strong>Curso:</strong> Computación Gráfica</p>
+        <p><strong>Docente:</strong> Ing. Tintaya Zegarra Elvio</p>
+    </div>
+    <div class="footer-location">
+        Abancay – Apurímac - Perú<br>
+        2025
+    </div>
 
-<section>
-<h2>2. Marco Teórico</h2>
+    <!-- ÍNDICE / CONTENTS -->
+    <div class="contents-index">
+        <h3 style="font-size: 1.25rem; margin-bottom: 8px;">Contenido</h3>
+        <ul>
+            <li><a href="#introduccion">Introducción</a></li>
+            <li><a href="#capitulo1">Capítulo I: Anatomía Discreta de la Malla y Arquitectura de Datos</a>
+                <ul style="list-style: none; margin-left: 20px; columns: 1;">
+                    <li>1.1. Geometría Combinatoria: Vértices, Aristas y Caras</li>
+                    <li>1.2. Estructuras de Datos Topológicas: Half-Edge y Winged-Edge</li>
+                    <li>1.3. Atributos de Vértice en la Pipeline de Renderizado (Normales y UVs)</li>
+                </ul>
+            </li>
+            <li><a href="#capitulo2">Capítulo II: Paradigmas de Topología y Diseño Orientado a la Deformación</a>
+                <ul style="list-style: none; margin-left: 20px;">
+                    <li>2.1. El Conflicto de la Rasterización: Triángulos vs. Cuadriláteros</li>
+                    <li>2.2. Flujo Topológico (Edge Flow) y Dinámica de Polos</li>
+                    <li>2.3. Retopología y Proyección Geométrica</li>
+                </ul>
+            </li>
+            <li><a href="#capitulo3">Capítulo III: Procesamiento Algorítmico, Simplificación y Virtualización</a>
+                <ul style="list-style: none; margin-left: 20px;">
+                    <li>3.1. Algoritmos de Superficies de Subdivisión Matemáticas</li>
+                    <li>3.2. Simplificación Algorítmica y Niveles de Detalle (LOD)</li>
+                    <li>3.3. Virtualización Geométrica de Mallas de Micro-polígonos</li>
+                </ul>
+            </li>
+            <li><a href="#conclusion">Conclusión</a></li>
+            <li><a href="#referencias">Referencias</a></li>
+        </ul>
+    </div>
 
-<h3>2.1 Definición</h3>
-<p>
-Una malla poligonal es un conjunto de vértices, aristas y caras organizados para representar la superficie de un objeto.
-</p>
+    <!-- ================= INTRODUCCIÓN ================= -->
+    <div id="introduccion" class="titulo-1">Introducción</div>
+    <p>En contraste con las descripciones analíticas de curvas y superficies paramétricas, el estándar dominante para el renderizado masivo e interactivo en motores de juegos, simulación virtual y producciones cinematográficas son las mallas poligonales (polygon meshes). Al representar objetos mediante un gran número de facetas planas discretas, las mallas aprovechan al máximo la arquitectura altamente paralela de las Unidades de Procesamiento Gráfico (GPU). Esta monografía expone de forma detallada la anatomía de estas estructuras de datos, los paradigmas topológicos críticos para la deformación, y los algoritmos vanguardistas de subdivisión y virtualización que permiten alcanzar un nivel de fotorrealismo inédito.</p>
 
-<h3>2.2 Componentes</h3>
-<ul>
-<li><b>Vértices:</b> puntos en el espacio</li>
-<li><b>Aristas:</b> conexiones entre vértices</li>
-<li><b>Caras:</b> superficies (triángulos o cuadriláteros)</li>
-</ul>
+    <!-- ========= CAPÍTULO I ========= -->
+    <div id="capitulo1" class="titulo-1">Capítulo I: Anatomía Discreta de la Malla y Arquitectura de Datos</div>
 
-<h3>2.3 Tipos</h3>
-<ul>
-<li>Mallas triangulares (más usadas en videojuegos)</li>
-<li>Mallas cuadrangulares (modelado profesional)</li>
-<li>Mallas irregulares</li>
-</ul>
+    <div class="titulo-2">1.1. Geometría Combinatoria: Vértices, Aristas y Caras</div>
+    <p>El esqueleto de una malla poligonal obedece a los principios de la geometría discreta. Sus componentes mínimos son: <strong>Vértices (V):</strong> Puntos infinitesimales definidos por un vector de posición (x,y,z). <strong>Aristas (E):</strong> Segmentos de línea recta que conectan pares de vértices, dictando la conectividad de la red. <strong>Caras (F):</strong> Polígonos planos delimitados por un ciclo cerrado de aristas. El análisis topológico de una malla cerrada y sin huecos (geometría manifold) obedece la Característica de Euler-Poincaré: <em>V - E + F = 2</em>. Garantizar que una malla sea manifold (donde cada arista es compartida por exactamente dos caras) es indispensable para evitar errores en simulaciones físicas y fallos en la impresión 3D (Mendoza, 2025).</p>
 
-<h3>2.4 Propiedades</h3>
-<ul>
-<li>Resolución (cantidad de polígonos)</li>
-<li>Topología</li>
-<li>Optimización para renderizado</li>
-</ul>
+    <div class="titulo-2">1.2. Estructuras de Datos Topológicas: Half-Edge y Winged-Edge</div>
+    <p>Para visualizar una malla, un búfer de vértices lineal es suficiente para la GPU. Sin embargo, para editar o modificar la malla algorítmicamente (esculpido, subdivisión), el software debe conocer la "adyacencia" (qué cara está conectada a qué arista). Las listas simples son altamente ineficientes para esto (complejidad O(n)). Por ello, el software de modelado implementa estructuras sofisticadas basadas en grafos, como la estructura Half-Edge. Esta técnica divide conceptualmente cada arista en dos aristas direccionales gemelas, cada una apuntando al vértice de destino y a la cara delimitada. Esto permite la navegación topológica circundante (iterar por todos los vértices adyacentes a un punto dado) en tiempo constante O(1), agilizando masivamente las operaciones de modelado y selección (Zúñiga, 2022).</p>
 
-</section>
+    <div class="titulo-2">1.3. Atributos de Vértice en la Pipeline de Renderizado (Normales y UVs)</div>
+    <p>La forma geométrica por sí sola no determina el aspecto del objeto; los vértices deben contener vectores de metadatos. El más importante es el Vector Normal, que especifica la perpendicular a la superficie en ese punto. Las normales determinan cómo la luz incide sobre el objeto. Modificando artificialmente las normales de los vértices (interpolación Gouraud o Phong), el motor de renderizado puede engañar al ojo humano para que perciba una superficie suave sobre una malla de baja resolución poligonal. Asimismo, las Coordenadas UV (u,v) proyectan el modelo 3D en un espacio 2D plano (como pelar una naranja), permitiendo que texturas fotográficas complejas se envuelvan correctamente sobre la geometría sin distorsiones matemáticas (Villanueva, 2021).</p>
 
-<section>
-<h2>3. Ejemplo Animado</h2>
+    <!-- ========= CAPÍTULO II ========= -->
+    <div id="capitulo2" class="titulo-1">Capítulo II: Paradigmas de Topología y Diseño Orientado a la Deformación</div>
 
-<canvas id="canvas" width="400" height="300"></canvas>
+    <div class="titulo-2">2.1. El Conflicto de la Rasterización: Triángulos vs. Cuadriláteros</div>
+    <p>El hardware gráfico procesa exclusivamente triángulos. La razón es la certidumbre matemática: tres puntos siempre son coplanares y el uso de coordenadas baricéntricas asegura una interpolación lineal de luces y texturas libre de ambigüedades dentro del área del triángulo. No obstante, para los modeladores 3D y directores técnicos de personajes (Riggers), construir modelos solo con triángulos genera una topología caótica. La industria exige el uso casi exclusivo de cuadriláteros (quads) durante la fase de creación. Las mallas basadas en quads permiten algoritmos de selección en anillo (edge loops y face loops) predecibles y responden de forma simétrica e ideal a los algoritmos de suavizado o subdivisión (Mendoza, 2025).</p>
 
-<script>
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+    <div class="titulo-2">2.2. Flujo Topológico (Edge Flow) y Dinámica de Polos</div>
+    <p>En la animación orgánica, la topología debe mimetizar la anatomía real. Las líneas formadas por cuadriláteros conectados, denominadas Edge Flow, deben rodear la boca (músculo orbicular de los labios) y los ojos, y disponerse perpendicularmente en articulaciones como codos y rodillas. Esta distribución de tensión permite que cuando el esqueleto virtual flexiona un miembro, la malla se contraiga y estire preservando el volumen sin generar pliegues no deseados ni colapsar sobre sí misma. Un elemento crítico a gestionar son los polos (vértices donde se encuentran tres, cinco o más aristas, en lugar de cuatro). Los polos alteran abruptamente el flujo direccional de la topología y deben ser ubicados estratégicamente en zonas de baja deformación mecánica (Villanueva, 2021).</p>
 
-let angle = 0;
+    <div class="titulo-2">2.3. Retopología y Proyección Geométrica</div>
+    <p>El esculpido digital produce mallas con millones de triángulos sin orden topológico. Para introducir ese activo en un videojuego o animación, debe someterse a la Retopología. Este es el meticuloso proceso de dibujar manualmente (o mediante algoritmos semi-automáticos basados en campos direccionales) una nueva carcasa limpia basada en quads sobre la escultura original. Posteriormente, los detalles ultra finos (arrugas, poros) de la malla pesada original se "hornean" (baking) en texturas especiales de mapas de normales (Normal Maps) aplicadas a la nueva topología ligera, logrando un balance perfecto entre detalle visual y rendimiento en tiempo real.</p>
 
-let puntos = [
-    [-50,-50],[50,-50],[50,50],[-50,50]
-];
+    <!-- ========= CAPÍTULO III ========= -->
+    <div id="capitulo3" class="titulo-1">Capítulo III: Procesamiento Algorítmico, Simplificación y Virtualización</div>
 
-function rotar(x,y,ang){
-    return [
-        x*Math.cos(ang) - y*Math.sin(ang),
-        x*Math.sin(ang) + y*Math.cos(ang)
-    ];
-}
+    <div class="titulo-2">3.1. Algoritmos de Superficies de Subdivisión Matemáticas</div>
+    <p>La subdivisión es el puente entre el modelado de baja densidad (Low-Poly) y la suavidad del cine. Algoritmos matemáticos, como el esquema de Catmull-Clark (ampliamente estandarizado en la industria y patentado originariamente por Pixar), toman una malla de control base poligonal y calculan iterativamente nuevos vértices basándose en el promedio de las posiciones adyacentes. Tras múltiples iteraciones de subdivisión, la malla geométrica discreta converge progresivamente hacia una superficie paramétrica B-spline perfectamente lisa. El control del "pliegue" (crease weight) permite definir aristas que deben permanecer afiladas tras la subdivisión, logrando una amalgama entre modelado orgánico suave y bordes mecánicos rígidos (Mendoza, 2025).</p>
 
-function dibujar(){
-    ctx.clearRect(0,0,400,300);
+    <div class="titulo-2">3.2. Simplificación Algorítmica y Niveles de Detalle (LOD)</div>
+    <p>Para garantizar una tasa de fotogramas (FPS) fluida en entornos extensos (mundo abierto), se emplean técnicas algorítmicas de decimación basadas en métricas de error cuadrático (Quadric Error Metrics). Estos algoritmos analizan la curvatura del objeto e identifican polígonos superfluos (como los ubicados en superficies planas) para aplicar operaciones de colapso de aristas (edge collapse), eliminando vértices gradualmente y minimizando la contracción de volumen visual. Esto permite generar mallas discretas en varios Niveles de Detalle (LOD, Level of Detail), de modo que el motor intercambia el modelo denso por uno ligero a medida que la cámara se aleja del objeto en tiempo real (Torres &amp; Salas, 2023).</p>
 
-    let rotados = puntos.map(p => rotar(p[0],p[1],angle));
+    <div class="titulo-2">3.3. Virtualización Geométrica de Mallas de Micro-polígonos</div>
+    <p>El paradigma tradicional de los niveles de detalle discretos está siendo reemplazado por la geometría de micro-polígonos virtualizada (ej. tecnología Nanite en Unreal Engine 5). Este sistema revoluciona el pipeline matemático. En la precomputación, la malla se fragmenta en "clústeres" o meshlets en forma de árbol jerárquico. Durante el tiempo de ejecución, la GPU evalúa algoritmos de descarte selectivo (Culling) a nivel computacional en fracciones de milisegundo, determinando qué clústeres tienen el tamaño de un píxel en pantalla, renderizando solo la resolución exacta necesaria en cada fotograma. Esto elimina virtualmente los límites de presupuesto poligonal, permitiendo exportar escaneos crudos de millones de triángulos directamente al motor gráfico para lograr una calidad fotorrealista (Mendoza, 2025).</p>
 
-    ctx.beginPath();
+    <!-- ========= CONCLUSIÓN ========= -->
+    <div id="conclusion" class="titulo-1">Conclusión</div>
+    <p>El estudio de las mallas poligonales revela que su correcta estructuración no solo depende de la geometría visible, sino también de una sólida base topológica y de estructuras de datos eficientes que permiten su manipulación en tiempo real. Elementos fundamentales como vértices, aristas y caras, junto con principios como la característica de Euler, garantizan la integridad de la malla, mientras que estructuras como Half-Edge optimizan el procesamiento y edición de modelos complejos.</p>
+    <p>Asimismo, la importancia de una topología bien diseñada —especialmente mediante el uso de cuadriláteros y un adecuado flujo de aristas— resulta clave en aplicaciones donde la deformación es esencial, como la animación y el rigging. Procesos como la retopología permiten equilibrar calidad visual y rendimiento, adaptando modelos de alta densidad a entornos interactivos.</p>
+    <p>Finalmente, los avances en algoritmos de subdivisión, simplificación y virtualización han transformado el manejo de geometría digital, permitiendo alcanzar niveles de realismo sin precedentes sin comprometer la eficiencia computacional. En conjunto, las mallas poligonales se consolidan como un pilar esencial en gráficos por computadora, videojuegos e ingeniería digital, integrando matemáticas, informática y diseño en un mismo marco tecnológico avanzado.</p>
 
-    rotados.forEach((p,i)=>{
-        let x = p[0]+200;
-        let y = p[1]+150;
-        if(i===0) ctx.moveTo(x,y);
-        else ctx.lineTo(x,y);
-    });
+    <!-- ========= REFERENCIAS ========= -->
+    <div id="referencias" class="titulo-1">Referencias</div>
+    <ol class="references">
+        <li>Mendoza, A. (2025). <em>Técnicas avanzadas de modelado 3D, topología y motores de render</em>. Anaya Multimedia.</li>
+        <li>Torres, J., &amp; Salas, M. (2023). Optimización algorítmica de mallas poligonales y clústeres geométricos en motores de renderizado en tiempo real. <em>Journal de Gráficos Computacionales y Simulación</em>, 8(4), 112-128.</li>
+        <li>Villanueva, C. (2021). <em>Renderizado, topología estructural y matemáticas del espacio 3D</em>. Editorial Ra-Ma.</li>
+        <li>Zúñiga, F. (2022). Estructuras de datos Half-edge en el procesamiento geométrico de mallas densas. <em>Revista Latinoamericana de Computación Aplicada</em>, 11(3), 88-105.</li>
+    </ol>
 
-    ctx.closePath();
-    ctx.stroke();
-
-    angle += 0.02;
-
-    requestAnimationFrame(dibujar);
-}
-
-dibujar();
-</script>
-
-</section>
-
-<section>
-<h2>4. Aplicaciones</h2>
-<ul>
-<li>Modelado 3D</li>
-<li>Videojuegos</li>
-<li>Realidad virtual</li>
-<li>Simulación</li>
-</ul>
-</section>
-
-<section>
-<h2>5. Conclusión</h2>
-<p>
-Las mallas poligonales son la base de la representación tridimensional moderna.
-Su correcta utilización permite generar modelos eficientes y realistas.
-</p>
-</section>
-
+    <hr>
+    <div style="font-size: 0.75rem; text-align: center; color: #5a6e7c; margin-top: 20px;">
+        Documento académico — Computación Gráfica — Universidad Tecnológica de los Andes (UTEA)
+    </div>
+</div>
 </body>
 </html>
