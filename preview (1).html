@@ -1,142 +1,319 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Monografía: Curvas Paramétricas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Monografía: Curvas Paramétricas | Computación Gráfica</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<style>
-body{
-    font-family: Arial;
-    margin:40px;
-    background:#f4f6f9;
-    line-height:1.7;
-}
-section{
-    background:white;
-    padding:20px;
-    margin-bottom:20px;
-    border-radius:10px;
-}
-canvas{
-    display:block;
-    margin:auto;
-    border:1px solid black;
-}
-h1,h2,h3{
-    color:#2c3e50;
-}
-</style>
+        body {
+            background-color: #e6e9ef;
+            font-family: 'Times New Roman', Georgia, 'Cambria', serif;
+            line-height: 1.45;
+            color: #1a1e24;
+            padding: 40px 20px;
+        }
+
+        /* contenedor de la hoja tipo A4 / word */
+        .paper {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.2);
+            padding: 2.2rem 2.5rem;
+            border-radius: 4px;
+        }
+
+        /* encabezado universidad */
+        .uni-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #1e3a5f;
+            padding-bottom: 1rem;
+            margin-bottom: 1.8rem;
+            flex-wrap: wrap;
+        }
+        .uni-text {
+            flex: 2;
+        }
+        .uni-text h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #0b2b44;
+            margin: 0;
+            line-height: 1.3;
+        }
+        .uni-text h3 {
+            font-size: 1rem;
+            font-weight: normal;
+            color: #2c3e4e;
+            margin-top: 5px;
+        }
+        .logo-placeholder {
+            background-color: #f0f2f5;
+            width: 130px;
+            height: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            border: 1px solid #cfdde6;
+            font-size: 0.75rem;
+            color: #2c5a7a;
+            text-align: center;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23f4f9ff" stroke="%232b6a9e" stroke-width="1.2"/><text x="50" y="55" font-size="11" text-anchor="middle" fill="%231a4d6f" font-weight="bold">UTEA</text><text x="50" y="72" font-size="8" text-anchor="middle" fill="%235f8bb3">Logo institucional</text></svg>');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+        }
+        .title-main {
+            text-align: center;
+            margin: 30px 0 20px;
+        }
+        .title-main h1 {
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #bbb;
+            display: inline-block;
+            padding-bottom: 8px;
+            color: #0b2b44;
+        }
+        .datos {
+            background: #f8fafd;
+            padding: 12px 20px;
+            margin: 25px 0;
+            border-left: 6px solid #1e5f8e;
+            font-size: 1.05rem;
+        }
+        .datos p {
+            margin: 5px 0;
+        }
+        .footer-location {
+            text-align: center;
+            margin: 25px 0 15px 0;
+            font-style: italic;
+            color: #2c5a72;
+        }
+        .TOC-Heading, .Titulo {
+            font-size: 1.7rem;
+            font-weight: bold;
+            margin: 1.2rem 0 0.8rem 0;
+            color: #173e5c;
+            border-left: 5px solid #1e6b9b;
+            padding-left: 18px;
+        }
+        .titulo-2 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin: 1.2rem 0 0.7rem 0;
+            color: #204b6e;
+            border-bottom: 1px solid #cbdbe2;
+            padding-bottom: 3px;
+        }
+        p {
+            margin-bottom: 0.8rem;
+            text-align: justify;
+        }
+        .contents-index {
+            background: #f8fafc;
+            padding: 0.8rem 1.5rem;
+            margin: 1rem 0 2rem;
+            border-radius: 12px;
+        }
+        .contents-index ul {
+            columns: 2;
+            column-gap: 2rem;
+            list-style: none;
+            margin-top: 8px;
+        }
+        .contents-index li {
+            margin-bottom: 6px;
+            font-size: 0.98rem;
+        }
+        .contents-index a {
+            text-decoration: none;
+            color: #1f5a82;
+        }
+        .contents-index a:hover {
+            text-decoration: underline;
+        }
+        .references {
+            margin-top: 2rem;
+            list-style: decimal;
+            padding-left: 1.8rem;
+        }
+        .references li {
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        hr {
+            margin: 20px 0;
+            height: 1px;
+            background: #ccc;
+            border: 0;
+        }
+        @media (max-width: 700px) {
+            .paper {
+                padding: 1.3rem;
+            }
+            .uni-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .logo-placeholder {
+                margin-top: 10px;
+            }
+            .title-main h1 {
+                font-size: 1.6rem;
+            }
+            .contents-index ul {
+                columns: 1;
+            }
+        }
+        .image-fake {
+            font-style: italic;
+            background: #f4f6fa;
+            text-align: center;
+            padding: 10px;
+            margin: 15px 0;
+            font-size: 0.85rem;
+            border: 1px dashed #9aaec2;
+        }
+    </style>
 </head>
-
 <body>
+<div class="paper">
+    <!-- ENCABEZADO UNIVERSIDAD / LOGO -->
+    <div class="uni-header">
+        <div class="uni-text">
+            <h2>UNIVERSIDAD TECNOLÓGICA DE LOS ANDES</h2>
+            <h3>FACULTAD DE INGENIERÍA</h3>
+            <h3>ESCUELA PROFESIONAL DE INGENIERÍA DE SISTEMAS E INFORMÁTICA</h3>
+        </div>
+        <div class="logo-placeholder" aria-label="Logo institucional UTEA">
+            <!-- representa la imagen media/image1.png -->
+        </div>
+    </div>
 
-<h1 style="text-align:center;">MONOGRAFÍA</h1>
-<h2 style="text-align:center;">CURVAS PARAMÉTRICAS</h2>
+    <!-- TÍTULO PRINCIPAL -->
+    <div class="title-main">
+        <h1>Curvas Paramétricas</h1>
+    </div>
 
-<section>
-<h2>1. Introducción</h2>
-<p>
-Las curvas paramétricas constituyen una herramienta fundamental en la matemática moderna y la computación gráfica.
-Permiten representar trayectorias mediante funciones dependientes de un parámetro, lo cual facilita describir movimientos
-y formas complejas en el plano y en el espacio.
-</p>
-</section>
+    <!-- DATOS ESTUDIANTE Y DOCENTE -->
+    <div class="datos">
+        <p><strong>Estudiante:</strong> Fernando Huachaca Pacheco</p>
+        <p><strong>Curso:</strong> Computación Gráfica</p>
+        <p><strong>Docente:</strong> Ing. Tintaya Zegarra Elvio</p>
+    </div>
+    <div class="footer-location">
+        Abancay – Apurímac - Perú<br>
+        2025
+    </div>
 
-<section>
-<h2>2. Marco Teórico</h2>
+    <!-- ÍNDICE / CONTENTS -->
+    <div class="contents-index">
+        <h3 style="font-size: 1.3rem; margin-bottom: 8px;">Contenido</h3>
+        <ul>
+            <li><a href="#introduccion">Introducción</a></li>
+            <li><a href="#capitulo1">Capítulo I: Fundamentos y Principios Matemáticos</a>
+                <ul style="list-style: none; margin-left: 20px; columns: 1;">
+                    <li>1.1. Evolución del Modelado Geométrico</li>
+                    <li>1.2. El Parámetro 't' y su Interpretación Física y Matemática</li>
+                    <li>1.3. Ventajas Analíticas sobre Representaciones Implícitas</li>
+                </ul>
+            </li>
+            <li><a href="#capitulo2">Capítulo II: Clasificación y Propiedades en la Industria</a>
+                <ul style="list-style: none; margin-left: 20px;">
+                    <li>2.1. Curvas de Bézier y Polinomios de Bernstein</li>
+                    <li>2.2. B-Splines y el Triunfo del Control Local</li>
+                    <li>2.3. NURBS: El Estándar Racional No Uniforme</li>
+                    <li>2.4. Topología y Continuidad Paramétrica y Geométrica</li>
+                </ul>
+            </li>
+            <li><a href="#capitulo3">Capítulo III: Aplicaciones en Ingeniería de Precisión y Simulaciones</a>
+                <ul style="list-style: none; margin-left: 20px;">
+                    <li>3.1. Diseño y Manufactura Asistida por Computadora (CAD/CAM)</li>
+                    <li>3.2. Cinemática, Robótica y Control de Jerk</li>
+                    <li>3.3. Animación Interpolada y Gráficos por Computadora</li>
+                </ul>
+            </li>
+            <li><a href="#conclusion">Conclusión</a></li>
+            <li><a href="#referencias">Referencias</a></li>
+        </ul>
+    </div>
 
-<h3>2.1 Definición</h3>
-<p>
-Una curva paramétrica es aquella en la que cada coordenada se expresa como función de una variable independiente denominada parámetro (t).
-</p>
+    <!-- ================= INTRODUCCIÓN ================= -->
+    <div id="introduccion" class="Titulo">Introducción</div>
+    <p>El modelado de formas complejas en el entorno digital ha requerido la evolución de las funciones matemáticas tradicionales hacia sistemas más flexibles. Las curvas paramétricas representan esta evolución, permitiendo definir trayectorias y superficies de manera independiente a las limitaciones de las funciones explícitas. Esta monografía explora con exhaustividad desde sus fundamentos matemáticos hasta sus aplicaciones más avanzadas en la industria moderna, profundizando en la estructura analítica que hace posible el diseño asistido por computadora.</p>
 
-<p><b>x = f(t), y = g(t)</b></p>
+    <!-- ========= CAPÍTULO I ========= -->
+    <div id="capitulo1" class="Titulo">Capítulo I: Fundamentos y Principios Matemáticos</div>
 
-<h3>2.2 Interpretación Geométrica</h3>
-<p>
-A medida que el parámetro t varía, el punto (x,y) describe una trayectoria en el plano cartesiano.
-Esto permite representar movimientos como trayectorias de partículas.
-</p>
+    <div class="titulo-2">1.1. Evolución del Modelado Geométrico</div>
+    <p>Históricamente, la representación matemática de curvas se basaba en la geometría analítica cartesiana, donde una variable dependía estrictamente de otra, como en la función explícita y = f(x). Este enfoque presentaba graves limitaciones geométricas: no permitía representar formas cerradas, curvas con auto-intersecciones o trayectorias con múltiples valores en un mismo eje, violando la prueba de la línea vertical. La necesidad de modelar geometrías orgánicas y precisas impulsó en la década de 1960 el desarrollo de la geometría computacional. Ingenieros como Pierre Bézier en Renault y Paul de Casteljau en Citroën lideraron la transición hacia el modelado paramétrico, creando sistemas donde la forma matemática no estaba atada al sistema de coordenadas de forma rígida, sentando las bases del Diseño Asistido por Computadora (CAD) moderno (Vargas, 2021).</p>
 
-<h3>2.3 Ventajas</h3>
-<ul>
-<li>Permiten representar curvas no funcionales (como circunferencias completas)</li>
-<li>Facilitan el modelado de movimiento</li>
-<li>Son fundamentales en animación</li>
-</ul>
+    <div class="titulo-2">1.2. El Parámetro 't' y su Interpretación Física y Matemática</div>
+    <p>En una formulación paramétrica, cada coordenada de un punto en el espacio se define como una función independiente de una variable auxiliar llamada parámetro, comúnmente denotado como <em>t</em>. Matemáticamente, una curva se expresa como un vector de posición <strong>C(t) = [x(t), y(t), z(t)]</strong>. El parámetro actúa como un "tiempo" o "progreso" a lo largo de la curva, y suele estar normalizado en el intervalo <em>t ∈ [0, 1]</em>, donde t=0 es el punto de inicio y t=1 es el punto final. Esta estructura vectorial permite la aplicación directa del cálculo diferencial. Al derivar C(t) respecto a t, obtenemos el vector tangente C'(t), que indica la velocidad y dirección instantánea. La segunda derivada, C''(t), proporciona el vector de aceleración, lo cual permite establecer un triedro de Frenet-Serret para analizar la torsión y curvatura intrínseca en cualquier punto de la trayectoria (Fernández, 2024).</p>
 
-<h3>2.4 Tipos de Curvas</h3>
-<ul>
-<li>Lineales</li>
-<li>Circulares</li>
-<li>Espirales</li>
-<li>Cicloides</li>
-</ul>
+    <div class="titulo-2">1.3. Ventajas Analíticas sobre Representaciones Implícitas</div>
+    <p>Las representaciones implícitas, definidas por ecuaciones del tipo f(x,y,z) = 0 (como la ecuación de una esfera x² + y² + z² - r² = 0), son útiles para determinar si un punto está dentro, fuera o sobre una superficie. Sin embargo, son ineficientes para el dibujo computacional. Las curvas paramétricas, en cambio, son inherentemente "generativas": es computacionalmente trivial iterar valores de t (por ejemplo, en incrementos de 0.01) para generar una secuencia de puntos discretos y renderizar la curva en pantalla. Además, las transformaciones afines (traslaciones, rotaciones, escalados) se aplican de manera sencilla sobre la matriz de puntos de control sin alterar las ecuaciones subyacentes, lo que otorga una flexibilidad inigualable en entornos interactivos (Vargas, 2021).</p>
 
-</section>
+    <!-- ========= CAPÍTULO II ========= -->
+    <div id="capitulo2" class="Titulo">Capítulo II: Clasificación y Propiedades de las Curvas en la Industria</div>
 
-<section>
-<h2>3. Ejemplo Matemático</h2>
-<p>
-Circunferencia:
-</p>
-<p><b>x = r cos(t), y = r sin(t)</b></p>
-</section>
+    <div class="titulo-2">2.1. Curvas de Bézier y Polinomios de Bernstein</div>
+    <p>Las curvas de Bézier son la base conceptual del modelado paramétrico. Se definen mediante un conjunto de puntos de control <em>P<sub>i</sub></em> y utilizan los polinomios de Bernstein como funciones de base. La curva interpola (toca) el primer y último punto de control, mientras que los puntos intermedios actúan como atractores magnéticos que deforman la trayectoria. Una propiedad matemática crucial es la "envolvente convexa": la curva generada siempre reside completamente dentro del polígono convexo formado por sus puntos de control. No obstante, las curvas de Bézier estándar padecen de un problema estructural grave: el control global. Mover un solo punto de control altera los coeficientes del polinomio entero, modificando la forma de la curva en todo su dominio. Esto hace que las curvas de alto grado sean computacionalmente inestables y difíciles de editar con precisión en secciones específicas (Gómez et al., 2022).</p>
 
-<section>
-<h2>4. Ejemplo Animado</h2>
+    <div class="titulo-2">2.2. B-Splines y el Triunfo del Control Local</div>
+    <p>Para solventar las limitaciones de las curvas de Bézier, se introdujeron las Basis Splines o B-Splines. Su innovación radica en fragmentar la curva en múltiples segmentos polinómicos de grado inferior, unidos bajo restricciones matemáticas estrictas. Esto se logra introduciendo un "vector de nudos" (knot vector), una secuencia de valores escalares que definen cómo y dónde las funciones base polinómicas se activan y desactivan. Esta arquitectura algorítmica, comúnmente resuelta mediante la relación de recurrencia de Cox-de Boor, proporciona control local: el movimiento de un punto de control solo deforma una vecindad específica (los segmentos adyacentes) de la curva, dejando el resto de la geometría completamente intacta. Esta propiedad es invaluable para diseñadores industriales que requieren microajustes en partes complejas de un objeto.</p>
 
-<canvas id="canvas" width="400" height="300"></canvas>
+    <div class="titulo-2">2.3. NURBS: El Estándar Racional No Uniforme</div>
+    <p>El pináculo del modelado paramétrico es el formato NURBS (Non-Uniform Rational B-Splines). Su arquitectura trasciende la geometría euclidiana y se fundamenta en la geometría proyectiva. El término "Racional" implica que las funciones de base son cocientes de polinomios. Esto introduce una variable adicional en cada punto de control: el peso (w<sub>i</sub>). Al incrementar el peso de un punto, la curva es atraída con mayor fuerza hacia él. La importancia monumental de los polinomios racionales es que son las únicas representaciones paramétricas capaces de modelar secciones cónicas matemáticamente exactas (círculos, elipses, hipérbolas, cilindros). En los polinomios estándar (Bézier o B-Splines puros), un círculo perfecto siempre será una aproximación. El estándar NURBS unificó el diseño industrial al permitir representar tanto formas orgánicas libres como primitivas geométricas analíticas precisas bajo una única formulación matemática uniforme (Fernández, 2024).</p>
 
-<script>
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+    <div class="titulo-2">2.4. Topología y Continuidad Paramétrica y Geométrica</div>
+    <p>Al concatenar múltiples segmentos de curvas, el ensamblaje debe ser impecable. La continuidad se clasifica bajo dos paradigmas:</p>
+    <p><strong>Continuidad Paramétrica:</strong> Es estricta. Exige que las derivadas en el punto de empalme coincidan tanto en dirección como en magnitud. C⁰ indica que los puntos se tocan; C¹ asegura tangentes idénticas (sin esquinas afiladas); C² garantiza que la curvatura y la aceleración se mantienen constantes, previniendo fuerzas bruscas en simulaciones físicas.</p>
+    <p><strong>Continuidad Geométrica:</strong> Es más permisiva y orientada a la estética visual. En los vectores tangentes deben ser colineales (misma dirección), pero pueden diferir en magnitud. La continuidad G² (curvatura continua o Class A Surfacing) es el estándar de oro en el diseño automotriz de carrocerías, ya que garantiza que el reflejo del entorno sobre la pintura metálica no presente quiebres ópticos ni distorsiones (Ramírez &amp; Silva, 2023).</p>
 
-let t = 0;
+    <!-- ========= CAPÍTULO III ========= -->
+    <div id="capitulo3" class="Titulo">Capítulo III: Aplicaciones en Ingeniería de Precisión y Simulaciones</div>
 
-function animar(){
-    ctx.clearRect(0,0,400,300);
+    <div class="titulo-2">3.1. Diseño y Manufactura Asistida por Computadora (CAD/CAM)</div>
+    <p>Las representaciones basadas en NURBS son el lenguaje nativo del ecosistema CAD industrial (SolidWorks, CATIA, Rhinoceros). La formulación paramétrica permite exportar los modelos sin pérdida de resolución y traducirlos a trayectorias de herramientas (G-code) en procesos CAM para máquinas CNC y fresadoras. La exactitud analítica garantiza el cumplimiento de tolerancias micrométricas en el mecanizado de componentes aeroespaciales (Gómez et al., 2022).</p>
 
-    ctx.beginPath();
-    ctx.arc(200,150,100,0,Math.PI*2);
-    ctx.strokeStyle = "#ccc";
-    ctx.stroke();
+    <div class="titulo-2">3.2. Cinemática, Robótica y Control de Jerk</div>
+    <p>En robótica industrial y sistemas de automatización, las curvas spline de alto grado (generalmente quinticas) se utilizan para la planificación de trayectorias en el espacio articular de brazos robóticos. La continuidad C² es crítica para minimizar el Jerk (la derivada de la aceleración respecto al tiempo). Minimizar el jerk resulta en movimientos fluidos que reducen el desgaste mecánico de los servomotores, previenen vibraciones perjudiciales y optimizan el consumo energético del robot (Ramírez &amp; Silva, 2023).</p>
 
-    let x = 200 + 100*Math.cos(t);
-    let y = 150 + 100*Math.sin(t);
+    <div class="titulo-2">3.3. Animación Interpolada y Gráficos por Computadora</div>
+    <p>En software de animación (Maya, Blender), la progresión del tiempo y el valor de las propiedades (posición, escala, opacidad) se manipulan mediante editores de gráficos basados en curvas de Bézier. Los animadores ajustan los manipuladores tangentes (asas de Bézier) en fotogramas clave para aplicar principios clásicos de animación, como Ease In y Ease Out logrando dinámicas de movimiento orgánicas que emulan la inercia y la gravedad física de manera realista.</p>
 
-    ctx.beginPath();
-    ctx.arc(x,y,5,0,Math.PI*2);
-    ctx.fillStyle = "red";
-    ctx.fill();
+    <!-- ========= CONCLUSIÓN ========= -->
+    <div id="conclusion" class="Titulo">CONCLUSIÓN</div>
+    <p>El modelado paramétrico de curvas representa un avance fundamental en la evolución de la geometría aplicada, al superar las limitaciones de las representaciones tradicionales y permitir una mayor flexibilidad, precisión y control en la generación de formas complejas. A través del uso del parámetro t, se logra una descripción dinámica de las trayectorias, facilitando tanto el análisis matemático como su implementación computacional. Asimismo, la evolución desde curvas de Bézier hasta B-Splines y NURBS evidencia un progreso hacia sistemas más eficientes, donde el control local, la estabilidad numérica y la capacidad de representar formas exactas se vuelven esenciales.</p>
+    <p>Estas herramientas no solo tienen valor teórico, sino que son indispensables en campos como el diseño industrial, la ingeniería de precisión, la robótica y la animación digital, donde la continuidad, suavidad y exactitud son requisitos críticos. En conjunto, el modelado paramétrico se consolida como un pilar del desarrollo tecnológico moderno, permitiendo integrar matemáticas avanzadas con aplicaciones prácticas de alto impacto en la industria y la innovación.</p>
 
-    t += 0.05;
+    <!-- ========= REFERENCIAS ========= -->
+    <div id="referencias" class="Titulo">Referencias</div>
+    <ol class="references">
+        <li>Fernández, L. (2024). <em>Matemáticas avanzadas para la computación gráfica: Algoritmos y topología</em> (3.ª ed.). Editorial Síntesis.</li>
+        <li>Gómez, R., Martínez, S., &amp; Ruiz, P. (2022). Análisis comparativo de curvas NURBS y B-Splines en entornos CAD industriales. <em>Revista Iberoamericana de Computación</em>, 15(2), 45-60.</li>
+        <li>Ramírez, C., &amp; Silva, H. (2023). Aplicación de continuidad paramétrica en la interpolación de trayectorias robóticas. <em>Ingeniería y Ciencias de la Computación</em>, 9(1), 22-38.</li>
+        <li>Vargas, E. (2021). <em>Diseño geométrico asistido por computadora: Teoría algorítmica y práctica</em>. Ediciones de la U. Latinoamericana de Computación Aplicada, 11(3), 88-105.</li>
+    </ol>
 
-    requestAnimationFrame(animar);
-}
-
-animar();
-</script>
-
-</section>
-
-<section>
-<h2>5. Aplicaciones</h2>
-<ul>
-<li>Animación y videojuegos</li>
-<li>Trayectorias físicas</li>
-<li>Ingeniería y robótica</li>
-<li>Diseño asistido por computadora (CAD)</li>
-</ul>
-</section>
-
-<section>
-<h2>6. Conclusión</h2>
-<p>
-Las curvas paramétricas permiten representar fenómenos dinámicos de manera precisa y flexible.
-Su uso es esencial en múltiples áreas tecnológicas y científicas.
-</p>
-</section>
-
+    <hr>
+    <div style="font-size: 0.75rem; text-align: center; color: #5a6e7c; margin-top: 20px;">
+        Documento académico — Computación Gráfica — Universidad Tecnológica de los Andes (UTEA)
+    </div>
+</div>
 </body>
 </html>
